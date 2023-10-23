@@ -3,29 +3,29 @@ package com.pluralsight;
 import java.time.*;
 
 public class Deposit {
-    private LocalDate today = LocalDate.now();
-    private LocalTime currentTime = LocalTime.now();
-    private String name;
+    private String today;
+    private String time;
+    private String description;
     private String vendor;
     private double amount;
 
-    public Deposit(){
-        LocalDate today;
-        LocalTime currentTime;
-        String name;
-        String vendor;
-        double amount;
+    public Deposit(String today, String time, String description, String vendor, double amount) {
+        this.today = today;
+        this.time = time;
+        this.description = description;
+        this.vendor =  vendor;
+        this.amount = amount;
     }
 
     //getters
-    public LocalDate getToday() {
+    public String getToday() {
         return this.today;
     }
-    public LocalTime getCurrentTime() {
-        return this.currentTime;
+    public String getTime() {
+        return this.time;
     }
-    public String getName() {
-        return this.name;
+    public String getDescription() {
+        return this.description;
     }
     public String getVendor() {
         return this.vendor;
@@ -36,14 +36,14 @@ public class Deposit {
 
     //setters
 
-    public void setToday(LocalDate today) {
+    public void setToday(String today) {
         this.today = today;
     }
-    public void setCurrentTime(LocalTime currentTime) {
-        this.currentTime = currentTime;
+    public void setTime(String currentTime) {
+        this.time = currentTime;
     }
     public void setName(String name) {
-        this.name = name;
+        this.description = description;
     }
     public void setVendor(String vendor) {
         this.vendor = vendor;
@@ -51,4 +51,5 @@ public class Deposit {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
 }
