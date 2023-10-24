@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class AccountLedgerApp {
     public static Scanner scanner = new Scanner(System.in);
-    public static HashMap<String, Deposit> information = new HashMap<String, Deposit>();
+    public static HashMap<String, Deposit> information = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -28,10 +28,10 @@ public class AccountLedgerApp {
                     information();
                     break;
                 case 2:
-                    payement();
+                    payment();
                     break;
                 case 3:
-
+                    ledger();
                     break;
                 case 4:
                     System.out.println("You have exited application :)");
@@ -41,8 +41,46 @@ public class AccountLedgerApp {
             }
         }
     }
+    public static void ledger() throws IOException{
 
-    public static void payement() throws IOException{
+        int ledgerScreen = 400;
+        while (ledgerScreen != 5){
+            System.out.println("Ledger Screen");
+            System.out.println("1.All");
+            System.out.println("2.Deposits");
+            System.out.println("3.Payments");
+            System.out.println("4.Reports");
+            System.out.println("5.Home Screen");
+            ledgerScreen = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (ledgerScreen){
+                case 1:
+
+
+                    break;
+                case 2:
+
+
+                    break;
+                case 3:
+
+
+                    break;
+                case 4:
+
+
+                    break;
+                case 5:
+                    System.out.println("You have exited to Home Screen :)\n");
+                    break;
+                default:
+                    System.out.println("\nNot an option pick (1-5)");
+            }
+        }
+    }
+
+    public static void payment() throws IOException{
         new FileWriter("src/main/resources/transactions.csv", true);
 
         LocalDate date1 = LocalDate.now();
