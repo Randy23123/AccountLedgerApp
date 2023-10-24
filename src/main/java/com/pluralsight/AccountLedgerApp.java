@@ -68,21 +68,21 @@ public class AccountLedgerApp {
                     }
                     break;
                 case 2:
-
-
+                    for (Deposit d : information.values())
+                        if (d.getAmount() > 0){
+                            System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
+                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                        }
                     break;
                 case 3:
-                    Scanner scan = new Scanner(new File("src/main/resources/transactions.csv"));
-                    while(scan.hasNext()){ String line = scan.nextLine().toLowerCase().toString();
-                        scan.nextLine();
-                        if(line.contains("-")){
-                            System.out.println(line); }
-                        //thinking about trying to change double into a string then changing it back to a negative double after asking user input then making it search for a negative number
-                    }
+                    for (Deposit d : information.values())
+                        if (d.getAmount() < 0){
+                            System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
+                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                        }
                     break;
                 case 4:
-
-
+                    reports();
                     break;
                 case 5:
                     System.out.println("You have exited to Home Screen :)\n");
@@ -91,6 +91,9 @@ public class AccountLedgerApp {
                     System.out.println("\nNot an option pick (1-5)");
             }
         }
+    }
+    public static void reports() throws IOException{
+
     }
 
     public static void payment() throws IOException{
@@ -114,13 +117,14 @@ public class AccountLedgerApp {
         vendor = scanner.nextLine();
         System.out.println("What is the amount?");
         amount = scanner.nextDouble();
+        amount *= -1;
         scanner.nextLine();
 
 
         information.put(description, new Deposit(today, time, description, vendor, amount));
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true))) {
-            bufferedWriter.write((today + "|" + time + "|" + description + "|" + vendor + "|" + "-" + amount + "\n"));
+            bufferedWriter.write((today + "|" + time + "|" + description + "|" + vendor + "|" + amount + "\n"));
             System.out.println("Payment has been Recorded :)\n");
         } catch (IOException e) {
             throw new IOException();
