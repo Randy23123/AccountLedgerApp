@@ -36,7 +36,7 @@ public class AccountLedgerApp {
                 case 4:
                     System.out.println("You have exited application :)");
                     break;
-                default
+                default:
                     System.out.println("\nNot an option pick (1-4)");
             }
         }
