@@ -13,85 +13,87 @@ public class AccountLedgerApp {
     public static void main(String[] args) throws IOException {
         //reads transaction file and loads the hashmap
         time();
-        int homeScreen = 0;
-        while (homeScreen != 4) {
+        String homeScreen;
+        do {
             System.out.println("\nHome Screen");
             System.out.println("1.Deposit");
             System.out.println("2.Payment");
             System.out.println("3.Ledger");
             System.out.println("4.Exit");
-            homeScreen = scanner.nextInt();
+            homeScreen = scanner.next();
             scanner.nextLine();
 
             switch (homeScreen) {
-                case 1:
+                case "1":
                     information();
                     break;
-                case 2:
+                case "2":
                     payment();
                     break;
-                case 3:
+                case "3":
                     ledger();
                     break;
-                case 4:
+                case "4":
                     System.out.println("You have exited application :)");
                     break;
                 default:
                     System.out.println("Not an option pick (1-4)\n");
             }
         }
+        while (!homeScreen.equals("4"));
     }
     public static void ledger() throws IOException{
 
-        int ledgerScreen = 0;
-        while (ledgerScreen != 5){
+        String ledgerScreen;
+        do {
             System.out.println("Ledger Screen");
             System.out.println("1.Display All");
             System.out.println("2.Display Deposits");
             System.out.println("3.Display Payments");
             System.out.println("4.Reports Screen");
             System.out.println("5.Home Screen");
-            ledgerScreen = scanner.nextInt();
+            ledgerScreen = scanner.next();
             scanner.nextLine();
 
             switch (ledgerScreen){
-                case 1:
+                case "1":
                     for (Deposit d : information.values()){
                         System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
                                 d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                     }
                     break;
-                case 2:
+                case "2":
                     for (Deposit d : information.values())
                         if (d.getAmount() > 0){
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
                                     d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                         }
                     break;
-                case 3:
+                case "3":
                     for (Deposit d : information.values())
                         if (d.getAmount() < 0){
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
                                     d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                         }
                     break;
-                case 4:
+                case "4":
                     reports();
                     break;
-                case 5:
+                case "5":
                     System.out.println("You have exited to Home Screen :)\n");
                     break;
                 default:
                     System.out.println("Not an option pick (1-5)\n");
             }
         }
+        while(!ledgerScreen.equals("5"));
     }
     public static void reports() throws IOException{
         LocalDate dateNow = LocalDate.now();
         Year logDateYear = Year.from(dateNow);
 
-        int reportScreen = 0;
-        while (reportScreen !=6){
+        String reportScreen;
+        do {
             System.out.println("Reports Screen");
             System.out.println("1.Month to date");
             System.out.println("2.Previous Month");
@@ -100,10 +102,10 @@ public class AccountLedgerApp {
             System.out.println("5.Search by Vendor");
             System.out.println("6.Custom Search");
             System.out.println("0.Go back to Ledger Screen");
-            reportScreen = scanner.nextInt();
+            reportScreen = scanner.next();
             scanner.nextLine();
             switch(reportScreen){
-                case 1:
+                case "1":
                     for (Deposit d : information.values()){
                         Month currentMonth  = dateNow.getMonth();
                         if (dateNow.getMonth() == currentMonth){
@@ -112,7 +114,7 @@ public class AccountLedgerApp {
                         }
                     }
                     break;
-                case 2:
+                case "2":
                 for (Deposit d : information.values()){
                     LocalDate logDate = d.getToday();
                     YearMonth yearMonth = YearMonth.from(logDate);
@@ -123,7 +125,7 @@ public class AccountLedgerApp {
                     }
                 }
                     break;
-                case 3:
+                case "3":
                     for (Deposit d : information.values()){
                         LocalDate logDate = d.getToday();
                         Year currentYear = Year.from(logDate);
@@ -133,7 +135,7 @@ public class AccountLedgerApp {
                         }
                     }
                     break;
-                case 4:
+                case "4":
                     for (Deposit d : information.values()){
                         LocalDate logDate = d.getToday();
                         Year currentYear = Year.from(logDate);
@@ -144,16 +146,16 @@ public class AccountLedgerApp {
                         }
                     }
                     break;
-                case 5:
+                case "5":
                     System.out.println("Enter a vendor name:");
                     scanner.nextLine();
                     for (Deposit d : information.values()){
 
                     }
                     break;
-                case 6:
+                case "6":
                     break;
-                case 0:
+                case "0":
                     System.out.println("You have exited to Ledger Screen :)\n");
                     ledger();
                     break;
@@ -161,6 +163,7 @@ public class AccountLedgerApp {
                     System.out.println("Not an option pick (1-6) or 0 to go Back\n");
             }
         }
+        while(!reportScreen.equals("0"));
     }
 
     public static void payment() throws IOException{
