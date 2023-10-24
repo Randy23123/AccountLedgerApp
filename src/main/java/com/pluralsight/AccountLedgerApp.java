@@ -28,7 +28,7 @@ public class AccountLedgerApp {
                     information();
                     break;
                 case 2:
-
+                    payement();
                     break;
                 case 3:
 
@@ -36,9 +36,43 @@ public class AccountLedgerApp {
                 case 4:
                     System.out.println("You have exited application :)");
                     break;
-                default:
+                default
                     System.out.println("\nNot an option pick (1-4)");
             }
+        }
+    }
+
+    public static void payement() throws IOException{
+        new FileWriter("src/main/resources/transactions.csv", true);
+
+        LocalDate date1 = LocalDate.now();
+        LocalTime date2 = LocalTime.now();
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+
+        String input = "";
+        String today = date1.toString();
+        String time = date2.toString();
+        String description = "";
+        String vendor = "";
+        double amount = 0;
+
+        System.out.println("What is the description?");
+        description = scanner.nextLine();
+        System.out.println("Who is the vendor?");
+        vendor = scanner.nextLine();
+        System.out.println("What is the amount?");
+        amount = scanner.nextDouble();
+        scanner.nextLine();
+
+
+        information.put(description, new Deposit(today, time, description, vendor, amount));
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true))) {
+            bufferedWriter.write((today + "|" + time + "|" + description + "|" + vendor + "|" + "-" + amount + "\n"));
+            System.out.println("Payment has been Recorded :)\n");
+        } catch (IOException e) {
+            throw new IOException();
         }
     }
 
