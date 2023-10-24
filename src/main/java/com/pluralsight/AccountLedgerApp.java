@@ -92,6 +92,7 @@ public class AccountLedgerApp {
         LocalDate dateNow = LocalDate.now();
         Year logDateYear = Year.from(dateNow);
 
+
         String reportScreen;
         do {
             System.out.println("Reports Screen");
@@ -147,10 +148,17 @@ public class AccountLedgerApp {
                     }
                     break;
                 case "5":
+                    String user;
                     System.out.println("Enter a vendor name:");
-                    scanner.nextLine();
+                    user = scanner.next();
+                    boolean vendor = false;
                     for (Deposit d : information.values()){
-
+                        String vendorName = d.getVendor();
+                        if (vendorName.equalsIgnoreCase(user)){
+                            System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
+                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                            vendor = true;
+                        }
                     }
                     break;
                 case "6":
