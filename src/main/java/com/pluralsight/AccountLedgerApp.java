@@ -56,16 +56,29 @@ public class AccountLedgerApp {
 
             switch (ledgerScreen){
                 case 1:
-
-
+                    try{
+                        FileInputStream items = new FileInputStream("src/main/resources/transactions.csv");
+                        Scanner scanner1 = new Scanner(items);
+                        System.out.println("Displaying all Transactions:\n");
+                        scanner1.nextLine();
+                        System.out.println(scanner1.nextLine());
+                    }
+                    catch (IOException e){
+                        System.out.println("Wrong");
+                    }
                     break;
                 case 2:
 
 
                     break;
                 case 3:
-
-
+                    Scanner scan = new Scanner(new File("src/main/resources/transactions.csv"));
+                    while(scan.hasNext()){ String line = scan.nextLine().toLowerCase().toString();
+                        scan.nextLine();
+                        if(line.contains("-")){
+                            System.out.println(line); }
+                        //thinking about trying to change double into a string then changing it back to a negative double after asking user input then making it search for a negative number
+                    }
                     break;
                 case 4:
 
