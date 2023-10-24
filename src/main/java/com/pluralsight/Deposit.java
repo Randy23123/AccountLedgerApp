@@ -3,13 +3,13 @@ package com.pluralsight;
 import java.time.*;
 
 public class Deposit {
-    private String today;
-    private String time;
+    private LocalDate today;
+    private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Deposit(String today, String time, String description, String vendor, double amount) {
+    public Deposit(LocalDate today, LocalTime time, String description, String vendor, double amount) {
         this.today = today;
         this.time = time;
         this.description = description;
@@ -18,10 +18,10 @@ public class Deposit {
     }
 
     //getters
-    public String getToday() {
+    public LocalDate getToday() {
         return this.today;
     }
-    public String getTime() {
+    public LocalTime getTime() {
         return this.time;
     }
     public String getDescription() {
@@ -36,10 +36,10 @@ public class Deposit {
 
     //setters
 
-    public void setToday(String today) {
+    public void setToday(LocalDate today) {
         this.today = today;
     }
-    public void setTime(String currentTime) {
+    public void setTime(LocalTime currentTime) {
         this.time = currentTime;
     }
     public void setName(String name) {
