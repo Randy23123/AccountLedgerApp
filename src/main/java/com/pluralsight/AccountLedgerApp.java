@@ -2,11 +2,7 @@ package com.pluralsight;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
+import java.time.*;
 import java.util.*;
 import java.util.Scanner;
 
@@ -19,7 +15,7 @@ public class AccountLedgerApp {
         time();
         int homeScreen = 0;
         while (homeScreen != 4) {
-            System.out.println("Home Screen");
+            System.out.println("\nHome Screen");
             System.out.println("1.Deposit");
             System.out.println("2.Payment");
             System.out.println("3.Ledger");
@@ -53,7 +49,7 @@ public class AccountLedgerApp {
             System.out.println("1.Display All");
             System.out.println("2.Display Deposits");
             System.out.println("3.Display Payments");
-            System.out.println("4.Display Reports");
+            System.out.println("4.Reports Screen");
             System.out.println("5.Home Screen");
             ledgerScreen = scanner.nextInt();
             scanner.nextLine();
@@ -92,7 +88,7 @@ public class AccountLedgerApp {
     }
     public static void reports() throws IOException{
         LocalDate dateNow = LocalDate.now();
-        Month currentMonth  = dateNow.getMonth();
+        Year logDateYear = Year.from(dateNow);
 
         int reportScreen = 0;
         while (reportScreen !=6){
@@ -102,13 +98,14 @@ public class AccountLedgerApp {
             System.out.println("3.Year to Date");
             System.out.println("4.Previous Year");
             System.out.println("5.Search by Vendor");
-            System.out.println("6.Go back to Ledger Screen");
+            System.out.println("6.Custom Search");
+            System.out.println("0.Go back to Ledger Screen");
             reportScreen = scanner.nextInt();
             scanner.nextLine();
             switch(reportScreen){
                 case 1:
                     for (Deposit d : information.values()){
-                        LocalDate logDate = d.getToday();
+                        Month currentMonth  = dateNow.getMonth();
                         if (dateNow.getMonth() == currentMonth){
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
                                     d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
@@ -116,29 +113,52 @@ public class AccountLedgerApp {
                     }
                     break;
                 case 2:
-//                for (Deposit d : information.values()){
-//                    LocalDate logDate = d.getToday();
-//                    if (dateNow.getMonth() == currentMonth){
-//                        System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-//                                d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
-//                    }
-//                }
+                for (Deposit d : information.values()){
+                    LocalDate logDate = d.getToday();
+                    YearMonth yearMonth = YearMonth.from(logDate);
+                    YearMonth lastMonth = YearMonth.now().minusMonths(1);
+                    if (lastMonth.equals(yearMonth)){
+                        System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
+                                d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                    }
+                }
                     break;
                 case 3:
-
+                    for (Deposit d : information.values()){
+                        LocalDate logDate = d.getToday();
+                        Year currentYear = Year.from(logDate);
+                        if (currentYear.equals(logDateYear)){
+                            System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
+                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                        }
+                    }
                     break;
                 case 4:
-
+                    for (Deposit d : information.values()){
+                        LocalDate logDate = d.getToday();
+                        Year currentYear = Year.from(logDate);
+                        Year lastYear = Year.now().minusYears(1);
+                        if (currentYear.equals(lastYear)){
+                            System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
+                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                        }
+                    }
                     break;
                 case 5:
+                    System.out.println("Enter a vendor name:");
+                    scanner.nextLine();
+                    for (Deposit d : information.values()){
 
+                    }
                     break;
                 case 6:
+                    break;
+                case 0:
                     System.out.println("You have exited to Ledger Screen :)\n");
                     ledger();
                     break;
                 default:
-                    System.out.println("Not an option pick (1-6)\n");
+                    System.out.println("Not an option pick (1-6) or 0 to go Back\n");
             }
         }
     }
