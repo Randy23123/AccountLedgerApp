@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import static com.pluralsight.AccountLedgerApp.*;
 
@@ -32,8 +33,10 @@ public class Reader {
                 description = info[2];
                 vendor = info[3];
                 amount = Double.parseDouble(info[4]);
+
                 information.put(description, new Values(localDate, localTime, description, vendor, amount));
                 count++;
+                sortValues = new ArrayList<>(information.values());
             }
         }
         buffReader.close();

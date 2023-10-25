@@ -11,9 +11,10 @@ public class AccountLedgerApp {
     public static HashMap<String, Values> information = new HashMap<>();
     static int count = 0;
     Reader reader = new Reader();
+    public static ArrayList<Values> sortValues = new ArrayList<>(information.values());
 
-    public static void AccountLedgerApp() throws IOException {
-        //reads transaction file and loads the hashmap
+    public static void homeScreen() throws IOException {
+
         String homeScreen;
         do {
             System.out.println("\nHome Screen");
@@ -118,6 +119,21 @@ public class AccountLedgerApp {
     public static void ledger() throws IOException {
         Reader.reader();
 
+        for (int i = 0; i < sortValues.size() - 1; i++) {
+            for (int j = i + 1; j < sortValues.size(); j++) {
+                Values value1 = sortValues.get(i);
+                Values value2 = sortValues.get(j);
+                LocalDateTime dateTime1 = LocalDateTime.of(value1.getDate(), value1.getTime());
+                LocalDateTime dateTime2 = LocalDateTime.of(value2.getDate(), value2.getTime());
+
+                if (dateTime2.isAfter(dateTime1)) {
+                    Values temp = sortValues.get(i);
+                    sortValues.set(i, sortValues.get(j));
+                    sortValues.set(j, temp);
+                }
+            }
+        }
+
         String ledgerScreen;
         do {
             System.out.println("Ledger Screen");
@@ -153,25 +169,25 @@ public class AccountLedgerApp {
     }
 
     public static void displayAll() throws IOException {
-        for (Values d : information.values()) {
+        for (Values d : sortValues) {
             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                    d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
         }
     }
 
     public static void displayDeposits() throws IOException {
-        for (Values d : information.values())
+        for (Values d : sortValues)
             if (d.getAmount() > 0) {
                 System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                        d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                        d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
             }
     }
 
     public static void displayPayments() throws IOException {
-        for (Values d : information.values())
+        for (Values d : sortValues)
             if (d.getAmount() < 0) {
                 System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                        d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                        d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
             }
     }
 
@@ -195,45 +211,45 @@ public class AccountLedgerApp {
             scanner.nextLine();
             switch (reportScreen) {
                 case "1":
-                    for (Values d : information.values()) {
-                        LocalDate transDate = d.getToday();
+                    for (Values d : sortValues) {
+                        LocalDate transDate = d.getDate();
                         Year transYear = Year.from(transDate);
                         Month transMonth = transDate.getMonth();
                         if (transYear.equals(logDateYear) && transMonth.equals(currentDateMonth)) {
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                                    d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                         }
                     }
                     break;
                 case "2":
-                    for (Values d : information.values()) {
-                        LocalDate logDate = d.getToday();
+                    for (Values d : sortValues) {
+                        LocalDate logDate = d.getDate();
                         YearMonth yearMonth = YearMonth.from(logDate);
                         YearMonth lastMonth = YearMonth.now().minusMonths(1);
                         if (lastMonth.equals(yearMonth)) {
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                                    d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                         }
                     }
                     break;
                 case "3":
-                    for (Values d : information.values()) {
-                        LocalDate logDate = d.getToday();
+                    for (Values d : sortValues) {
+                        LocalDate logDate = d.getDate();
                         Year currentYear = Year.from(logDate);
                         if (currentYear.equals(logDateYear)) {
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                                    d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                         }
                     }
                     break;
                 case "4":
-                    for (Values d : information.values()) {
-                        LocalDate logDate = d.getToday();
+                    for (Values d : sortValues) {
+                        LocalDate logDate = d.getDate();
                         Year currentYear = Year.from(logDate);
                         Year lastYear = Year.now().minusYears(1);
                         if (currentYear.equals(lastYear)) {
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                                    d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                         }
                     }
                     break;
@@ -242,11 +258,11 @@ public class AccountLedgerApp {
                     System.out.println("Enter a vendor name:");
                     user = scanner.next();
                     boolean vendor = false;
-                    for (Values d : information.values()) {
+                    for (Values d : sortValues) {
                         String vendorName = d.getVendor();
                         if (vendorName.equalsIgnoreCase(user)) {
                             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
-                                    d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
+                                    d.getDate(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
                             vendor = true;
                         }
                     }

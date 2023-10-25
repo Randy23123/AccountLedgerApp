@@ -3,14 +3,14 @@ package com.pluralsight;
 import java.time.*;
 
 public class Values {
-    private LocalDate today;
+    private LocalDate date;
     private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Values(LocalDate today, LocalTime time, String description, String vendor, double amount) {
-        this.today = today;
+    public Values(LocalDate date, LocalTime time, String description, String vendor, double amount) {
+        this.date = date;
         this.time = time;
         this.description = description;
         this.vendor =  vendor;
@@ -18,8 +18,8 @@ public class Values {
     }
 
     //getters
-    public LocalDate getToday() {
-        return this.today;
+    public LocalDate getDate() {
+        return this.date;
     }
     public LocalTime getTime() {
         return this.time;
@@ -36,8 +36,8 @@ public class Values {
 
     //setters
 
-    public void setToday(LocalDate today) {
-        this.today = today;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
     public void setTime(LocalTime currentTime) {
         this.time = currentTime;
