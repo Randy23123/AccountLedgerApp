@@ -12,9 +12,8 @@ public class AccountLedgerApp {
     static int count = 0;
     Reader reader = new Reader();
 
-    public static void main(String[] args) throws IOException {
+    public static void AccountLedgerApp() throws IOException {
         //reads transaction file and loads the hashmap
-        Reader.reader();
         String homeScreen;
         do {
             System.out.println("\nHome Screen");
@@ -43,6 +42,77 @@ public class AccountLedgerApp {
             }
         }
         while (!homeScreen.equals("4"));
+    }
+
+    public static void deposits() throws IOException {
+        BufferedWriter bufferedWriter;
+        bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
+
+        String description;
+        String vendor;
+        double amount;
+        String another;
+
+        while (true) {
+            System.out.println("What is the description?");
+            description = scanner.nextLine().trim();
+            System.out.println("Who is the vendor?");
+            vendor = scanner.nextLine().trim();
+            System.out.println("What is the amount?");
+            amount = scanner.nextDouble();
+            scanner.nextLine();
+
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm:ss");
+
+
+            bufferedWriter.newLine();
+            bufferedWriter.write((localDate + "|" + localTime + "|" + description + "|" + vendor + "|" + amount));
+            System.out.println("Its been Stored do you want to Enter another? (Y/N)");
+            another = scanner.next().toUpperCase().trim();
+            if (!another.equals("Y")) {
+                break;
+            }
+        }
+        bufferedWriter.close();
+    }
+
+    public static void payment() throws IOException {
+        BufferedWriter bufferedWriter;
+        bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
+
+        String description;
+        String vendor;
+        double amount;
+        String another;
+
+        while (true) {
+            System.out.println("What is the description?");
+            description = scanner.nextLine().trim();
+            System.out.println("Who is the vendor?");
+            vendor = scanner.nextLine().trim();
+            System.out.println("What is the amount?");
+            amount = scanner.nextDouble();
+            amount *= -1;
+            scanner.nextLine();
+
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm:ss");
+
+
+            bufferedWriter.newLine();
+            bufferedWriter.write((localDate + "|" + localTime + "|" + description + "|" + vendor + "|" + amount));
+            System.out.println("Its been Stored do you want to Enter another? (Y/N)");
+            another = scanner.nextLine().toUpperCase().trim();
+            if (!another.equals("Y")) {
+                break;
+            }
+        }
+        bufferedWriter.close();
     }
 
     public static void ledger() throws IOException {
@@ -81,20 +151,23 @@ public class AccountLedgerApp {
         }
         while (!ledgerScreen.equals("5"));
     }
-    public static void displayAll() throws IOException{
+
+    public static void displayAll() throws IOException {
         for (Values d : information.values()) {
             System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
                     d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
         }
     }
-    public static void displayDeposits() throws IOException{
+
+    public static void displayDeposits() throws IOException {
         for (Values d : information.values())
             if (d.getAmount() > 0) {
                 System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
                         d.getToday(), d.getTime(), d.getDescription(), d.getVendor(), d.getAmount());
             }
     }
-    public static void  displayPayments() throws  IOException{
+
+    public static void displayPayments() throws IOException {
         for (Values d : information.values())
             if (d.getAmount() < 0) {
                 System.out.printf("Date: %s | Time: %s | Description: %s | Vendor: %s | Amount: $%.2f\n",
@@ -177,7 +250,7 @@ public class AccountLedgerApp {
                             vendor = true;
                         }
                     }
-                    if (!vendor){
+                    if (!vendor) {
                         System.out.println("Not an Option!");
                     }
 
@@ -233,77 +306,5 @@ public class AccountLedgerApp {
             }
         }
         while (!customScreen.equals("0"));
-    }
-
-    public static void payment() throws IOException {
-        BufferedWriter bufferedWriter;
-        bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-
-        String description;
-        String vendor;
-        double amount;
-        String another;
-
-        while (true) {
-            System.out.println("What is the description?");
-            description = scanner.next();
-            System.out.println("Who is the vendor?");
-            vendor = scanner.next();
-            System.out.println("What is the amount?");
-            amount = scanner.nextDouble();
-            amount *= -1;
-            scanner.nextLine();
-
-            LocalDate localDate = LocalDate.now();
-            LocalTime localTime = LocalTime.now();
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm:ss");
-
-
-            bufferedWriter.newLine();
-            bufferedWriter.write((localDate + "|" + localTime + "|" + description + "|" + vendor + "|" + amount));
-            System.out.println("Its been Stored do you want to Enter another? (Y/N)");
-            another = scanner.next().toUpperCase().trim();
-            if (!another.equals("Y")){
-                break;
-            }
-        }
-        bufferedWriter.close();
-    }
-
-
-    public static void deposits() throws IOException {
-        BufferedWriter bufferedWriter;
-        bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/transactions.csv", true));
-
-        String description;
-        String vendor;
-        double amount;
-        String another;
-
-        while (true) {
-            System.out.println("What is the description?");
-            description = scanner.next();
-            System.out.println("Who is the vendor?");
-            vendor = scanner.next();
-            System.out.println("What is the amount?");
-            amount = scanner.nextDouble();
-            scanner.nextLine();
-
-            LocalDate localDate = LocalDate.now();
-            LocalTime localTime = LocalTime.now();
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm:ss");
-
-
-            bufferedWriter.newLine();
-            bufferedWriter.write((localDate + "|" + localTime + "|" + description + "|" + vendor + "|" + amount));
-            System.out.println("Its been Stored do you want to Enter another? (Y/N)");
-            another = scanner.next().toUpperCase().trim();
-            if (!another.equals("Y")){
-                break;
-            }
-        }
-        bufferedWriter.close();
     }
 }
