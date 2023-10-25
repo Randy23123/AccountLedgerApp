@@ -2,14 +2,14 @@ package com.pluralsight;
 
 import java.time.*;
 
-public class Deposit {
+public class Values {
     private LocalDate today;
     private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Deposit(LocalDate today, LocalTime time, String description, String vendor, double amount) {
+    public Values(LocalDate today, LocalTime time, String description, String vendor, double amount) {
         this.today = today;
         this.time = time;
         this.description = description;
