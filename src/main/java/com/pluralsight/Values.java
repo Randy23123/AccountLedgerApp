@@ -3,11 +3,11 @@ package com.pluralsight;
 import java.time.*;
 
 public class Values {
-    private LocalDate date;
-    private LocalTime time;
-    private String description;
-    private String vendor;
-    private double amount;
+    private final LocalDate date;
+    private final LocalTime time;
+    private final String description;
+    private final String vendor;
+    private final double amount;
 
     public Values(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
@@ -32,24 +32,6 @@ public class Values {
     }
     public double getAmount() {
         return this.amount;
-    }
-
-    //setters
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-    public void setTime(LocalTime currentTime) {
-        this.time = currentTime;
-    }
-    public void setName(String name) {
-        this.description = description;
-    }
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
 }

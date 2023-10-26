@@ -1,7 +1,6 @@
 package com.pluralsight;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.*;
 import java.util.Scanner;
@@ -11,7 +10,7 @@ public class Home {
     public static Scanner scanner = new Scanner(System.in);
     public static HashMap<String, Values> information = new HashMap<>();
     static int count = 0;
-    Reader reader = new Reader();
+
     public static ArrayList<Values> sortValues = new ArrayList<>(information.values());
 
     public static void homeScreen() throws IOException {
@@ -55,7 +54,7 @@ public class Home {
         double amount;
         String another;
 
-        while (true) {
+        do {
             System.out.println("What is the description?");
             description = scanner.nextLine().trim();
             System.out.println("Who is the vendor?");
@@ -66,18 +65,12 @@ public class Home {
 
             LocalDate localDate = LocalDate.now();
             LocalTime localTime = LocalTime.now();
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm:ss");
-
 
             bufferedWriter.newLine();
             bufferedWriter.write((localDate + "|" + localTime + "|" + description + "|" + vendor + "|" + amount));
             System.out.println("Its been Stored do you want to Enter another? (Y/N)");
             another = scanner.next().toUpperCase().trim();
-            if (!another.equals("Y")) {
-                break;
-            }
-        }
+        } while (another.equals("Y"));
         bufferedWriter.close();
     }
 
@@ -90,7 +83,7 @@ public class Home {
         double amount;
         String another;
 
-        while (true) {
+        do {
             System.out.println("What is the description?");
             description = scanner.nextLine().trim();
             System.out.println("Who is the vendor?");
@@ -102,18 +95,12 @@ public class Home {
 
             LocalDate localDate = LocalDate.now();
             LocalTime localTime = LocalTime.now();
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm:ss");
-
 
             bufferedWriter.newLine();
             bufferedWriter.write((localDate + "|" + localTime + "|" + description + "|" + vendor + "|" + amount));
             System.out.println("Its been Stored do you want to Enter another? (Y/N)");
             another = scanner.nextLine().toUpperCase().trim();
-            if (!another.equals("Y")) {
-                break;
-            }
-        }
+        } while (another.equals("Y"));
         bufferedWriter.close();
     }
 

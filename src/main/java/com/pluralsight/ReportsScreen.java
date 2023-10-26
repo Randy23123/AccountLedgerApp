@@ -123,5 +123,4 @@ public class ReportsScreen {
             System.out.println("Not an Option!");
         }
     }
-
 }
