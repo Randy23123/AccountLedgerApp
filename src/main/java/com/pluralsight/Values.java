@@ -33,5 +33,4 @@ public class Values {
     public double getAmount() {
         return this.amount;
     }
-
 }

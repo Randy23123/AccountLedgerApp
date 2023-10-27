@@ -27,7 +27,7 @@ public class CustomScreen {
 
         String customScreen;
         do {
-            System.out.println("Custom Screen");
+            System.out.println("\nCustom Screen");
             System.out.println("1.Start Date");
             System.out.println("2.End Date");
             System.out.println("3.Description");

@@ -27,7 +27,7 @@ public class LedgerScreen {
 
         String ledgerScreen;
         do {
-            System.out.println("Ledger Screen");
+            System.out.println("\nLedger Screen");
             System.out.println("1.Display All");
             System.out.println("2.Display Deposits");
             System.out.println("3.Display Payments");

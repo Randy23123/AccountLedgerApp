@@ -19,7 +19,7 @@ public class ReportsScreen {
 
         String reportScreen;
         do {
-            System.out.println("Reports Screen");
+            System.out.println("\nReports Screen");
             System.out.println("1.Month to date");
             System.out.println("2.Previous Month");
             System.out.println("3.Year to Date");
